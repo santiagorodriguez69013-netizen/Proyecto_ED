@@ -1,3 +1,10 @@
+from enum import Enum
+class EstadoPedido(Enum):
+    En_espera = "En espera"
+    Asignado = "Asignado"
+    Entregado = "Entregado"
+    Cancelado = "Cancelado"
+
 class Nodo:
     def __init__ (self, dato):
         self.dato = dato
@@ -70,4 +77,33 @@ class pilas:
             actual = actual.siguiente
 
         print ("estado de la pila" .join(elementos))
-        
+
+class Colaprioridad:
+    
+    def __init__(self):
+        self.urgentes = Colas()
+        self.normales = Colas()
+
+    def encolar (self, dato, urgente=False):
+    
+       if urgente:
+        self.urgentes.encolar(dato)
+        print ("El pedido tiene prioridad urgente")
+       else:
+           self.normales.encolar(dato)
+           print ("El pedido tiene prioridad Normal")
+
+class Pedido:
+    def __init__(self, id, codigo_cliente, descripcion, valor, barrio_destino,
+                  urgente=False):
+       self.id = id
+       self.codigo_cliente = codigo_cliente
+       self.descripcion = descripcion
+       self.valor = valor
+       self.barrio_destino = barrio_destino
+       self.urgente = urgente
+       self.estado = EstadoPedido.En_espera
+
+    def cambiar_estado(self, nuevo_estado):
+       self.estado = nuevo_estado
+       
